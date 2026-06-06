@@ -236,3 +236,47 @@ h1{
 ```
 
 }
+
+.player-section{
+
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+
+}
+
+#playerName{
+
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+
+}
+
+#saveNameBtn{
+
+    border:none;
+    background:#16a34a;
+    color:white;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+
+}
+
+#topSongsArea{
+
+    margin-bottom:30px;
+
+}
+
+.top-song{
+
+    background:#1e1e1e;
+    border:1px solid #333;
+    padding:10px;
+    margin-bottom:8px;
+    border-radius:8px;
+
+}
