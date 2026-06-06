@@ -673,7 +673,9 @@ loadPlayerName();
 
 saveNameBtn.addEventListener(
 "click",
-savePlayerName
+()=>{
+alert("完了");
+}
 );
 
 updateStatus();
