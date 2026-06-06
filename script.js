@@ -125,7 +125,7 @@ const PLAYER_NAME_KEY =
 let data = JSON.parse(
 localStorage.getItem(STORAGE_KEY)
 ||
-'{"owned":{},"lastDate":""}'
+'{"owned":{},"lastDate":"","dailyCount":0}'
 );
 
 const gachaBtn =
@@ -209,12 +209,23 @@ Object.keys(data.owned).length;
 progress.textContent =
 `収集率 ${ownedCount} / ${SONGS.length}`;
 
-if(data.lastDate === todayString()){
+if(
+data.lastDate === todayString()
+&&
+data.dailyCount >= 2
+){
 
 remaining.textContent =
 "本日のガチャ終了";
 
 gachaBtn.disabled = true;
+
+}else{
+
+remaining.textContent =
+`残り ${2 - (data.dailyCount || 0)} 回`;
+
+gachaBtn.disabled = false;
 
 }else{
 
@@ -440,8 +451,14 @@ result.innerHTML =
 
 async function runGacha(){
 
-data.lastDate =
-todayString();
+if(data.lastDate !== todayString()){
+
+data.lastDate = todayString();
+data.dailyCount = 0;
+
+}
+
+data.dailyCount++;
 
 saveData();
 
