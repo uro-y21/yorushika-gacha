@@ -225,7 +225,14 @@ Math.random()*SONGS.length
 
 function sleep(ms){
 
-  function loadPlayerName(){
+return new Promise(
+resolve =>
+setTimeout(resolve,ms)
+);
+
+}
+
+function loadPlayerName(){
 
 const savedName =
 localStorage.getItem(
@@ -243,16 +250,37 @@ savedName;
 
 function savePlayerName(){
 
-localStorage.setItem(
-PLAYER_NAME_KEY,
-playerNameInput.value.trim()
+const name =
+playerNameInput.value.trim();
+
+if(name===""){
+
+alert(
+"プレイヤー名を入力してください"
 );
 
-alert("保存しました");
+return;
 
 }
 
-  function renderTopSongs(){
+localStorage.setItem(
+PLAYER_NAME_KEY,
+name
+);
+
+alert(
+"保存しました"
+);
+
+}
+
+function renderTopSongs(){
+
+if(!topSongs){
+
+return;
+
+}
 
 topSongs.innerHTML = "";
 
@@ -269,7 +297,7 @@ b[1].count-a[1].count
 if(ranking.length===0){
 
 topSongs.innerHTML =
-"まだデータがありません";
+"<div class='top-song'>まだデータがありません</div>";
 
 return;
 
@@ -279,28 +307,24 @@ ranking.forEach(
 ([song,info],index)=>{
 
 const div =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 div.className =
 "top-song";
 
 div.innerHTML =
 
-`#${index+1}
+`<strong>#${index+1}</strong>
  ${song}
  (${info.count}回)`;
 
-topSongs.appendChild(div);
-
-}
+topSongs.appendChild(
+div
 );
 
-}
-  
-return new Promise(
-resolve =>
-setTimeout(resolve,ms)
-);
+});
 
 }
 
