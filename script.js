@@ -119,6 +119,9 @@ const SONGS = [
 
 const STORAGE_KEY = "yorushika_gacha";
 
+const PLAYER_NAME_KEY =
+"yorushika_player_name";
+
 let data = JSON.parse(
 localStorage.getItem(STORAGE_KEY)
 ||
@@ -151,6 +154,21 @@ document.getElementById("detailTitle");
 
 const detailBody =
 document.getElementById("detailBody");
+
+const playerNameInput =
+document.getElementById(
+"playerName"
+);
+
+const saveNameBtn =
+document.getElementById(
+"saveNameBtn"
+);
+
+const topSongs =
+document.getElementById(
+"topSongs"
+);
 
 function saveData(){
 
@@ -207,6 +225,78 @@ Math.random()*SONGS.length
 
 function sleep(ms){
 
+  function loadPlayerName(){
+
+const savedName =
+localStorage.getItem(
+PLAYER_NAME_KEY
+);
+
+if(savedName){
+
+playerNameInput.value =
+savedName;
+
+}
+
+}
+
+function savePlayerName(){
+
+localStorage.setItem(
+PLAYER_NAME_KEY,
+playerNameInput.value.trim()
+);
+
+alert("保存しました");
+
+}
+
+  function renderTopSongs(){
+
+topSongs.innerHTML = "";
+
+const ranking =
+Object.entries(
+data.owned
+)
+.sort(
+(a,b)=>
+b[1].count-a[1].count
+)
+.slice(0,10);
+
+if(ranking.length===0){
+
+topSongs.innerHTML =
+"まだデータがありません";
+
+return;
+
+}
+
+ranking.forEach(
+([song,info],index)=>{
+
+const div =
+document.createElement("div");
+
+div.className =
+"top-song";
+
+div.innerHTML =
+
+`#${index+1}
+ ${song}
+ (${info.count}回)`;
+
+topSongs.appendChild(div);
+
+}
+);
+
+}
+  
 return new Promise(
 resolve =>
 setTimeout(resolve,ms)
@@ -447,6 +537,7 @@ card
 });
 
 updateStatus();
+renderTopSongs();
 
 }
 
@@ -543,6 +634,15 @@ gachaBtn.addEventListener(
 runGacha
 );
 
+loadPlayerName();
+
+saveNameBtn.addEventListener(
+"click",
+savePlayerName
+);
+
 updateStatus();
 
 renderCollection();
+
+renderTopSongs();
