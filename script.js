@@ -241,8 +241,19 @@ PLAYER_NAME_KEY
 
 if(savedName){
 
-playerNameInput.value =
-savedName;
+const playerInfo =
+document.getElementById(
+"playerInfo"
+);
+
+playerInfo.textContent =
+`プレイヤー：${savedName}`;
+
+playerNameInput.style.display =
+"none";
+
+saveNameBtn.style.display =
+"none";
 
 }
 
