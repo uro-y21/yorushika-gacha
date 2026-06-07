@@ -236,8 +236,6 @@ gachaBtn.disabled = false;
 
 }
 
-}
-
 function randomSong(){
 
 return SONGS[
