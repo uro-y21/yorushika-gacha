@@ -209,11 +209,16 @@ Object.keys(data.owned).length;
 progress.textContent =
 `収集率 ${ownedCount} / ${SONGS.length}`;
 
-if(
+const count =
+(
 data.lastDate === todayString()
-&&
-data.dailyCount >= 2
-){
+)
+?
+(data.dailyCount || 0)
+:
+0;
+
+if(count >= 2){
 
 remaining.textContent =
 "本日のガチャ終了";
@@ -223,16 +228,11 @@ gachaBtn.disabled = true;
 }else{
 
 remaining.textContent =
-`残り ${2 - (data.dailyCount || 0)} 回`;
+`残り ${2 - count} 回`;
 
 gachaBtn.disabled = false;
 
-}else{
-
-remaining.textContent =
-"ガチャ可能";
-
-gachaBtn.disabled = false;
+}
 
 }
 
