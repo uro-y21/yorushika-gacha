@@ -128,6 +128,14 @@ localStorage.getItem(STORAGE_KEY)
 '{"owned":{},"lastDate":"","dailyCount":0}'
 );
 
+if(typeof data.dailyCount === "undefined"){
+
+data.dailyCount = 0;
+
+saveData();
+
+}
+
 const gachaBtn =
 document.getElementById("gachaBtn");
 
