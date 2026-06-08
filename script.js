@@ -254,6 +254,99 @@ Math.random()*SONGS.length
 
 }
 
+function playSongEffect(song){
+
+  if([
+    "靴の花火",
+    "夕凪、某、花惑い",
+    "花に亡霊",
+    "靴の花火(Re-Recording)"
+  ].includes(song)){
+    fireworkEffect();
+    return;
+  }
+
+  if([
+    "春泥棒"
+  ].includes(song)){
+    sakuraEffect();
+    return;
+  }
+
+  if([
+    "八月、某、月明かり",
+    "嘘月",
+    "月光浴",
+    "月に吠える"
+  ].includes(song)){
+    moonEffect();
+    return;
+  }
+
+  if([
+    "レプリカント"
+  ].includes(song)){
+    laserEffect();
+    return;
+  }
+
+  if([
+    "爆弾魔",
+    "爆弾魔(Re-Recording)"
+  ].includes(song)){
+    bombEffect();
+    return;
+  }
+}
+
+function fireworkEffect(){
+  for(let i=0;i<20;i++){
+    const dot = document.createElement("div");
+    dot.className = "firework";
+    dot.style.left = Math.random()*100 + "vw";
+    dot.style.top = Math.random()*100 + "vh";
+    document.body.appendChild(dot);
+
+    setTimeout(()=>dot.remove(), 800);
+  }
+}
+
+function sakuraEffect(){
+  for(let i=0;i<30;i++){
+    const petal = document.createElement("div");
+    petal.className = "sakura";
+    petal.style.left = Math.random()*100 + "vw";
+    petal.style.animationDuration = (2+Math.random()*3)+"s";
+    document.body.appendChild(petal);
+
+    setTimeout(()=>petal.remove(), 5000);
+  }
+}
+
+function moonEffect(){
+  document.body.classList.add("moon-mode");
+
+  setTimeout(()=>{
+    document.body.classList.remove("moon-mode");
+  }, 2000);
+}
+
+function laserEffect(){
+  const laser = document.createElement("div");
+  laser.className = "laser";
+  document.body.appendChild(laser);
+
+  setTimeout(()=>laser.remove(), 600);
+}
+
+function bombEffect(){
+  const boom = document.createElement("div");
+  boom.className = "bomb";
+  document.body.appendChild(boom);
+
+  setTimeout(()=>boom.remove(), 700);
+}
+
 function sleep(ms){
 
 return new Promise(
@@ -408,6 +501,8 @@ card.appendChild(result);
 
 animationArea.appendChild(card);
 
+playSongEffect(song);
+
 const cells =
 grid.querySelectorAll(".paper-cell");
 
@@ -472,43 +567,10 @@ updateStatus();
 
 animationArea.innerHTML = "";
 
-const pulls = [];
-
-for(let i=0;i<10;i++){
-
-pulls.push(
-randomSong()
-);
-
-}
-
-const specialSongs = [
-
-"夜行",
-"花に亡霊",
-"春泥棒",
-"晴る"
-
-];
-
-const specialHit =
-pulls.some(
-song =>
-specialSongs.includes(song)
-);
-
-if(specialHit){
-
-document.body.classList.add(
-"night-mode"
-);
-
-}else{
-
-document.body.classList.remove(
-"night-mode"
-);
-
+for(let i=0;i<20;i++){
+  const song = randomSong();
+  await showSongAnimation(song);
+  await sleep(300);
 }
 
 for(const song of pulls){
