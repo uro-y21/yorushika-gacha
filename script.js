@@ -226,7 +226,7 @@ data.lastDate === todayString()
 :
 0;
 
-if(count >= 2){
+if(count >= 20){
 
 remaining.textContent =
 "本日のガチャ終了";
@@ -236,7 +236,7 @@ gachaBtn.disabled = true;
 }else{
 
 remaining.textContent =
-`残り ${2 - count} 回`;
+`残り ${20 - count} 回`;
 
 gachaBtn.disabled = false;
 
@@ -552,39 +552,30 @@ result.innerHTML =
 
 async function runGacha(){
 
-if(data.lastDate !== todayString()){
+  if(data.lastDate !== todayString()){
+    data.lastDate = todayString();
+    data.dailyCount = 0;
+  }
 
-data.lastDate = todayString();
-data.dailyCount = 0;
+  // 1日20回制限
+  if(data.dailyCount >= 20){
+    updateStatus();
+    return;
+  }
 
-}
+  data.dailyCount++;
+  saveData();
+  updateStatus();
 
-data.dailyCount++;
+  animationArea.innerHTML = "";
 
-saveData();
-
-updateStatus();
-
-animationArea.innerHTML = "";
-
-for(let i=0;i<20;i++){
   const song = randomSong();
+
   await showSongAnimation(song);
-  await sleep(300);
-}
+  playSongEffect(song);
 
-for(const song of pulls){
-
-await showSongAnimation(song);
-
-await sleep(300);
-
-}
-
-saveData();
-
-renderCollection();
-
+  saveData();
+  renderCollection();
 }
 
 function renderCollection(mode="all"){
@@ -595,7 +586,7 @@ SONGS.forEach(song=>{
 
 const owned =
 data.owned[song];
-
+  
 if(
 mode==="owned"
 &&
