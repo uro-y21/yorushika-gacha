@@ -364,3 +364,76 @@ h1{
   0%{transform: scale(0.3); opacity:1;}
   100%{transform: scale(2); opacity:0;}
 }
+
+.moon{
+  position: fixed;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at 30% 30%, #fff, #d9d9d9 40%, #888);
+  border-radius: 50%;
+  box-shadow: 0 0 40px rgba(255,255,255,0.6);
+  z-index: 9999;
+  pointer-events: none;
+  animation: moonFloat 2s ease-out;
+}
+
+@keyframes moonFloat{
+  from{
+    opacity: 0;
+    transform: translateX(-50%) scale(0.6);
+  }
+  to{
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+
+/* 💣 爆弾本体 */
+.bomb-core{
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  background: black;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  box-shadow: 0 0 10px red;
+}
+
+/* 💥 爆発拡大 */
+.bomb-core.explode{
+  animation: bombBoom 0.3s ease-out forwards;
+}
+
+@keyframes bombBoom{
+  0%{transform: translate(-50%, -50%) scale(1);}
+  100%{transform: translate(-50%, -50%) scale(4); opacity:0;}
+}
+
+/* 💥 破片 */
+.bomb-shard{
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: red;
+  border-radius: 2px;
+  z-index: 9999;
+  animation: shardFly 0.8s ease-out forwards;
+}
+
+@keyframes shardFly{
+  0%{
+    transform: translate(0,0);
+    opacity: 1;
+  }
+  100%{
+    transform: translate(var(--dx), var(--dy));
+    opacity: 0;
+  }
+}
