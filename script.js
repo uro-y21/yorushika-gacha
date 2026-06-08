@@ -347,11 +347,39 @@ function laserEffect(){
 }
 
 function bombEffect(){
-  const boom = document.createElement("div");
-  boom.className = "bomb";
-  document.body.appendChild(boom);
 
-  setTimeout(()=>boom.remove(), 700);
+  // 爆弾本体
+  const bomb = document.createElement("div");
+  bomb.className = "bomb-core";
+  document.body.appendChild(bomb);
+
+  // 少し待って爆発
+  setTimeout(()=>{
+
+    bomb.classList.add("explode");
+
+    // 破片生成
+    for(let i=0;i<25;i++){
+      const shard = document.createElement("div");
+      shard.className = "bomb-shard";
+
+      shard.style.left = "50vw";
+      shard.style.top = "50vh";
+
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 100 + Math.random()*200;
+
+      shard.style.setProperty("--dx", Math.cos(angle) * distance + "px");
+      shard.style.setProperty("--dy", Math.sin(angle) * distance + "px");
+
+      document.body.appendChild(shard);
+
+      setTimeout(()=>shard.remove(), 800);
+    }
+
+    setTimeout(()=>bomb.remove(), 600);
+
+  }, 200);
 }
 
 function sleep(ms){
