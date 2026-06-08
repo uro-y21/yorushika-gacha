@@ -324,9 +324,16 @@ function sakuraEffect(){
 }
 
 function moonEffect(){
+
   document.body.classList.add("moon-mode");
 
+  const moon = document.createElement("div");
+  moon.className = "moon";
+
+  document.body.appendChild(moon);
+
   setTimeout(()=>{
+    moon.remove();
     document.body.classList.remove("moon-mode");
   }, 2000);
 }
