@@ -125,7 +125,7 @@ const PLAYER_NAME_KEY =
 let data = JSON.parse(
 localStorage.getItem(STORAGE_KEY)
 ||
-'{"owned":{},"lastDate":"","dailyCount":0}'
+'{"owned":{},"titles":[],"lastDate":"","dailyCount":0}'
 );
 
 if(typeof data.dailyCount === "undefined"){
@@ -134,6 +134,10 @@ data.dailyCount = 0;
 
 saveData();
 
+}
+
+if(!data.titles){
+  data.titles = [];
 }
 
 const gachaBtn =
@@ -433,6 +437,171 @@ return;
 
 }
 
+const TITLE_SETS = {
+
+  "夏草が邪魔をする 完成":[
+    "夏陰、ピアノを弾く",
+    "カトレア",
+    "言って。",
+    "あの夏に咲け",
+    "飛行",
+    "靴の花火",
+    "雲と幽霊"
+  ],
+
+  "負け犬にアンコールはいらない 完成":[
+    "前世",
+    "負け犬にアンコールはいらない",
+    "爆弾魔",
+    "ヒッチコック",
+    "落下",
+    "準透明少年",
+    "ただ君に晴れ",
+    "冬眠",
+    "夏、バス停、君を待つ"
+  ],
+
+  "だから僕は音楽を辞めた 完成":[
+    "8/31",
+    "藍二乗",
+    "八月、某、月明かり",
+    "詩書きとコーヒー",
+    "7/13",
+    "踊ろうぜ",
+    "六月は雨上がりの街を書く",
+    "五月は花緑青の窓辺から",
+    "夜紛い",
+    "5/6",
+    "パレード",
+    "エルマ",
+    "4/10",
+    "だから僕は音楽を辞めた"
+  ],
+
+  "エルマ 完成":[
+    "車窓",
+    "憂一乗",
+    "夕凪、某、花惑い",
+    "雨とカプチーノ",
+    "湖の街",
+    "神様のダンス",
+    "雨晴るる",
+    "歩く",
+    "心に穴が空いた",
+    "森の教会",
+    "声",
+    "エイミー",
+    "海底、月明かり",
+    "ノーチラス"
+  ],
+
+  "盗作 完成":[
+    "音楽泥棒の自白",
+    "昼鳶",
+    "春ひさぎ",
+    "爆弾魔(Re-Recording)",
+    "青年期、空き巣",
+    "レプリカント",
+    "花人局",
+    "朱夏期、音楽泥棒",
+    "盗作",
+    "思想犯",
+    "逃亡",
+    "幼年期、思い出の中",
+    "夜行",
+    "花に亡霊"
+  ],
+
+  "創作 完成":[
+    "強盗と花束",
+    "春泥棒",
+    "創作",
+    "風を食む",
+    "嘘月"
+  ],
+
+  "夏の肖像 完成":[
+    "夏の肖像",
+    "都落ち",
+    "ブレーメン",
+    "チノカテ",
+    "雪国",
+    "月に吠える",
+    "451",
+    "パドドゥ",
+    "又三郎",
+    "靴の花火(Re-Recording)",
+    "老人と海",
+    "さよならモルテン",
+    "いさな",
+    "左右盲",
+    "アルジャーノン"
+  ],
+
+  "踊る動物 完成":[
+    "第一夜",
+    "第二夜",
+    "第三夜",
+    "第四夜",
+    "第五夜",
+    "第六夜",
+    "第七夜",
+    "第八夜",
+    "第九夜",
+    "第十夜"
+  ],
+
+  "二人称 完成":[
+    "早朝、郵便受け",
+    "雲になる",
+    "花も騒めく",
+    "魔性",
+    "プレイシック",
+    "ポスト春",
+    "太陽",
+    "晴る",
+    "忘れてください",
+    "修羅",
+    "火星人",
+    "ルバート",
+    "火葬",
+    "アポリア",
+    "へび",
+    "うめき",
+    "啄木鳥",
+    "ヒッチコック(Re-Recording)",
+    "月光浴",
+    "千鳥",
+    "櫂",
+    "海へ"
+  ]
+
+};
+
+function checkTitles(){
+
+  const unlocked = [];
+
+  for(const [title,songs] of Object.entries(TITLE_SETS)){
+
+    const complete =
+      songs.every(song => data.owned[song]);
+
+    if(complete){
+      unlocked.push(title);
+    }
+  }
+
+if(
+  unlocked.includes("夏の肖像 完成") &&
+  unlocked.includes("踊る動物 完成")
+){
+  unlocked.push("幻燈 完成");
+}
+  
+  return unlocked;
+}
+
 localStorage.setItem(
 PLAYER_NAME_KEY,
 name
@@ -495,6 +664,30 @@ div
 );
 
 });
+
+}
+
+function renderTitles(){
+
+  const titleList =
+  document.getElementById("titleList");
+
+  if(!titleList) return;
+
+  titleList.innerHTML = "";
+
+  data.titles.forEach(title=>{
+
+    const div =
+    document.createElement("div");
+
+    div.className = "title-card";
+
+    div.textContent = title;
+
+    titleList.appendChild(div);
+
+  });
 
 }
 
@@ -609,8 +802,13 @@ async function runGacha(){
   await showSongAnimation(song);
   playSongEffect(song);
 
-  saveData();
-  renderCollection();
+  const titles = checkTitles();
+
+data.titles = titles;
+
+saveData();
+
+renderCollection();
 }
 
 function renderCollection(mode="all"){
@@ -808,3 +1006,5 @@ updateStatus();
 renderCollection();
 
 renderTopSongs();
+
+renderTitles();
