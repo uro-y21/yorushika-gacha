@@ -437,6 +437,17 @@ return;
 
 }
 
+localStorage.setItem(
+PLAYER_NAME_KEY,
+name
+);
+
+alert(
+"保存しました"
+);
+
+}
+
 const TITLE_SETS = {
 
   "夏草が邪魔をする 完成":[
@@ -602,16 +613,7 @@ if(
   return unlocked;
 }
 
-localStorage.setItem(
-PLAYER_NAME_KEY,
-name
-);
 
-alert(
-"保存しました"
-);
-
-}
 
 function renderTopSongs(){
 
@@ -800,7 +802,6 @@ async function runGacha(){
   const song = randomSong();
 
   await showSongAnimation(song);
-  playSongEffect(song);
 
   const titles = checkTitles();
 
@@ -809,6 +810,9 @@ data.titles = titles;
 saveData();
 
 renderCollection();
+
+renderTitles();
+  
 }
 
 function renderCollection(mode="all"){
