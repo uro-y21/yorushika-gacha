@@ -693,6 +693,47 @@ function renderTitles(){
 
 }
 
+async function showTitleUnlock(title){
+
+  const popup =
+  document.getElementById(
+    "titleUnlock"
+  );
+
+  const titleName =
+  document.getElementById(
+    "titleUnlockName"
+  );
+
+  titleName.textContent =
+  title;
+
+  popup.classList.remove(
+    "hidden"
+  );
+
+  if(title === "幻燈 完成"){
+
+    document.body.classList.add(
+      "moon-mode"
+    );
+
+  }
+
+  await sleep(3000);
+
+  popup.classList.add(
+    "hidden"
+  );
+
+  document.body.classList.remove(
+    "moon-mode"
+  );
+
+  await sleep(500);
+
+}
+
 async function showSongAnimation(song){
 
 const card =
@@ -803,11 +844,37 @@ async function runGacha(){
 
   await showSongAnimation(song);
 
-  const titles = checkTitles();
+  const oldTitles =
+[...data.titles];
+
+const titles =
+checkTitles();
+
+const newTitles =
+titles.filter(
+title =>
+!oldTitles.includes(title)
+);
+
+newTitles.sort((a,b)=>{
+
+  if(a === "幻燈 完成") return 1;
+
+  if(b === "幻燈 完成") return -1;
+
+  return 0;
+
+});
 
 data.titles = titles;
 
 saveData();
+
+for(const title of newTitles){
+
+  await showTitleUnlock(title);
+
+}
 
 renderCollection();
 
