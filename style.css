@@ -643,3 +643,7 @@ h1{
   text-align:center;
 
 }
+
+.complete-popup.hidden{
+  display:none !important;
+}
