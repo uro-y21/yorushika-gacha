@@ -683,13 +683,116 @@ function renderTitles(){
     const div =
     document.createElement("div");
 
-    div.className = "title-card";
+    div.className =
+    "title-card";
 
-    div.textContent = title;
+    div.textContent =
+    title.name;
+
+    div.addEventListener(
+      "click",
+      ()=>showTitleDetail(title)
+    );
 
     titleList.appendChild(div);
 
   });
+
+}
+
+function showTitleDetail(title){
+
+  detailTitle.textContent =
+  title.name;
+
+  let completeDate =
+  title.date;
+
+  if(!completeDate){
+
+  if(title.name==="幻燈"){
+
+    completeDate =
+    getGentoDate();
+
+  }else{
+
+    const songs =
+    TITLE_SETS[title.name];
+
+    if(songs){
+
+      completeDate =
+      getAlbumCompleteDate(
+        songs
+      );
+
+    }
+
+  }
+
+}
+
+  function getAlbumCompleteDate(
+  songs
+){
+
+  let latest = "";
+
+  songs.forEach(song=>{
+
+    const owned =
+    data.owned[song];
+
+    if(!owned) return;
+
+    if(
+      !latest ||
+      owned.firstDate > latest
+    ){
+
+      latest =
+      owned.firstDate;
+
+    }
+
+  });
+
+  return latest;
+
+}
+
+  detailBody.innerHTML = `
+    アルバム完成<br><br>
+
+    完成日時：
+    ${completeDate || "不明"}
+  `;
+
+  modal.classList.remove(
+    "hidden"
+  );
+
+}
+
+function getGentoDate(){
+
+  const natsu =
+  getAlbumCompleteDate(
+    TITLE_SETS["夏の肖像"]
+  );
+
+  const odoru =
+  getAlbumCompleteDate(
+    TITLE_SETS["踊る動物"]
+  );
+
+  if(!natsu) return odoru;
+  if(!odoru) return natsu;
+
+  return natsu > odoru
+    ? natsu
+    : odoru;
 
 }
 
@@ -706,13 +809,13 @@ async function showTitleUnlock(title){
   );
 
   titleName.textContent =
-  title;
+`${title} 完成！`;
 
   popup.classList.remove(
     "hidden"
   );
 
-  if(title === "幻燈 完成"){
+  if(title === "幻燈"){
 
     document.body.classList.add(
       "moon-mode"
@@ -858,15 +961,22 @@ title =>
 
 newTitles.sort((a,b)=>{
 
-  if(a === "幻燈 完成") return 1;
+  if(a === "幻燈") return 1;
 
-  if(b === "幻燈 完成") return -1;
+  if(b === "幻燈") return -1;
 
   return 0;
 
 });
 
-data.titles = titles;
+for(const title of newTitles){
+
+  data.titles.push({
+    name:title.replace(" 完成",""),
+    date:todayString()
+  });
+
+}
 
 saveData();
 
