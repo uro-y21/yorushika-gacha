@@ -759,7 +759,7 @@ function renderCompleteRecord(){
 
     el.innerHTML = `
 
-      👑 初代全曲コンプリート
+      👑 ${SONGS.length}曲コンプリート👑
 
       <br><br>
 
