@@ -140,6 +140,37 @@ if(!data.titles){
   data.titles = [];
 }
 
+const fixedTitles = {};
+
+data.titles.forEach(title=>{
+
+  if(typeof title === "string"){
+
+    title = {
+      name:title
+        .replace(" 完成","")
+        .replace("完成",""),
+      date:null
+    };
+
+  }
+
+  if(
+    !fixedTitles[title.name] ||
+    (title.date && !fixedTitles[title.name].date)
+  ){
+    fixedTitles[title.name] = title;
+  }
+
+});
+
+data.titles = Object.values(fixedTitles);
+
+saveData();
+
+const gachaBtn =
+document.getElementById("gachaBtn");
+
 const gachaBtn =
 document.getElementById("gachaBtn");
 
@@ -673,21 +704,6 @@ function renderTitles(){
 
   const titleList =
   document.getElementById("titleList");
-
-  data.titles = data.titles.map(title=>{
-
-  if(typeof title === "string"){
-
-    return {
-      name:title.replace("完成",""),
-      date:null
-    };
-
-  }
-
-  return title;
-
-});
 
 saveData();
 
