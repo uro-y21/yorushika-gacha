@@ -715,6 +715,33 @@ function renderTitles(){
 
 }
 
+function getAlbumCompleteDate(
+  songs
+){
+
+  let latest = "";
+
+  songs.forEach(song=>{
+
+    const owned =
+    data.owned[song];
+
+    if(!owned) return;
+
+    if(
+      !latest ||
+      owned.firstDate > latest
+    ){
+      latest =
+      owned.firstDate;
+    }
+
+  });
+
+  return latest;
+
+}
+
 function showTitleDetail(title){
 
   detailTitle.textContent =
@@ -762,32 +789,6 @@ function showTitleDetail(title){
 
 }
 
-function getAlbumCompleteDate(
-  songs
-){
-
-  let latest = "";
-
-  songs.forEach(song=>{
-
-    const owned =
-    data.owned[song];
-
-    if(!owned) return;
-
-    if(
-      !latest ||
-      owned.firstDate > latest
-    ){
-      latest =
-      owned.firstDate;
-    }
-
-  });
-
-  return latest;
-
-}
 
 function getGentoDate(){
 
