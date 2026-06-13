@@ -677,17 +677,17 @@ function renderTitles(){
   data.titles = data.titles.map(title=>{
 
   if(typeof title === "string"){
-
     return {
       name:title,
       date:null
     };
-
   }
 
   return title;
 
 });
+
+saveData();
 
   if(!titleList) return;
 
@@ -1194,9 +1194,7 @@ loadPlayerName();
 
 saveNameBtn.addEventListener(
 "click",
-()=>{
-alert("完了");
-}
+savePlayerName
 );
 
 updateStatus();
