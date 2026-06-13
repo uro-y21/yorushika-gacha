@@ -710,8 +710,32 @@ saveData();
     div.className =
     "title-card";
 
-    div.textContent =
-    title.name;
+    if(title.name === "幻燈"){
+  div.classList.add("gento-card");
+}
+
+    if(title.name === "幻燈"){
+
+  div.innerHTML = `
+    <div class="gento-title">
+      幻燈
+    </div>
+
+    <div class="gento-sub">
+      第一章:夏の肖像
+    </div>
+
+    <div class="gento-sub">
+      第二章:踊る動物
+    </div>
+  `;
+
+}else{
+
+  div.textContent =
+  title.name;
+
+}
 
     div.addEventListener(
       "click",
