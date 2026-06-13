@@ -677,10 +677,12 @@ function renderTitles(){
   data.titles = data.titles.map(title=>{
 
   if(typeof title === "string"){
+
     return {
-      name:title,
+      name:title.replace("完成",""),
       date:null
     };
+
   }
 
   return title;
