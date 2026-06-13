@@ -1106,8 +1106,10 @@ async function runGacha(){
 
   const song = randomSong();
 
-  await showSongAnimation(song);
+  await showCompletePopup();
 
+renderCompleteRecord();
+  
   const oldTitles =
 data.titles.map(
 t => t.name
