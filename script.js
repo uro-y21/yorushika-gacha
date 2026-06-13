@@ -145,22 +145,16 @@ const fixedTitles = {};
 data.titles.forEach(title=>{
 
   if(typeof title === "string"){
-
     title = {
-      name:title
-        .replace(" 完成","")
-        .replace("完成",""),
+      name:title,
       date:null
     };
-
   }
 
-  if(
-    !fixedTitles[title.name] ||
-    (title.date && !fixedTitles[title.name].date)
-  ){
-    fixedTitles[title.name] = title;
-  }
+  title.name = title.name
+    .replace(/\s*完成$/,"");
+
+  fixedTitles[title.name] = title;
 
 });
 
