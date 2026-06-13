@@ -450,7 +450,7 @@ alert(
 
 const TITLE_SETS = {
 
-  "夏草が邪魔をする 完成":[
+  "夏草が邪魔をする":[
     "夏陰、ピアノを弾く",
     "カトレア",
     "言って。",
@@ -460,7 +460,7 @@ const TITLE_SETS = {
     "雲と幽霊"
   ],
 
-  "負け犬にアンコールはいらない 完成":[
+  "負け犬にアンコールはいらない":[
     "前世",
     "負け犬にアンコールはいらない",
     "爆弾魔",
@@ -472,7 +472,7 @@ const TITLE_SETS = {
     "夏、バス停、君を待つ"
   ],
 
-  "だから僕は音楽を辞めた 完成":[
+  "だから僕は音楽を辞めた":[
     "8/31",
     "藍二乗",
     "八月、某、月明かり",
@@ -489,7 +489,7 @@ const TITLE_SETS = {
     "だから僕は音楽を辞めた"
   ],
 
-  "エルマ 完成":[
+  "エルマ":[
     "車窓",
     "憂一乗",
     "夕凪、某、花惑い",
@@ -506,7 +506,7 @@ const TITLE_SETS = {
     "ノーチラス"
   ],
 
-  "盗作 完成":[
+  "盗作":[
     "音楽泥棒の自白",
     "昼鳶",
     "春ひさぎ",
@@ -523,7 +523,7 @@ const TITLE_SETS = {
     "花に亡霊"
   ],
 
-  "創作 完成":[
+  "創作":[
     "強盗と花束",
     "春泥棒",
     "創作",
@@ -531,7 +531,7 @@ const TITLE_SETS = {
     "嘘月"
   ],
 
-  "夏の肖像 完成":[
+  "夏の肖像":[
     "夏の肖像",
     "都落ち",
     "ブレーメン",
@@ -549,7 +549,7 @@ const TITLE_SETS = {
     "アルジャーノン"
   ],
 
-  "踊る動物 完成":[
+  "踊る動物":[
     "第一夜",
     "第二夜",
     "第三夜",
@@ -562,7 +562,7 @@ const TITLE_SETS = {
     "第十夜"
   ],
 
-  "二人称 完成":[
+  "二人称":[
     "早朝、郵便受け",
     "雲になる",
     "花も騒めく",
@@ -604,10 +604,10 @@ function checkTitles(){
   }
 
 if(
-  unlocked.includes("夏の肖像 完成") &&
-  unlocked.includes("踊る動物 完成")
+  unlocked.includes("夏の肖像") &&
+  unlocked.includes("踊る動物")
 ){
-  unlocked.push("幻燈 完成");
+  unlocked.push("幻燈");
 }
   
   return unlocked;
@@ -948,7 +948,9 @@ async function runGacha(){
   await showSongAnimation(song);
 
   const oldTitles =
-[...data.titles];
+data.titles.map(
+t => t.name
+);
 
 const titles =
 checkTitles();
