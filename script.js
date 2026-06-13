@@ -140,6 +140,14 @@ if(!data.titles){
   data.titles = [];
 }
 
+if(!data.completeDate){
+  data.completeDate = null;
+}
+
+if(!data.completePulls){
+  data.completePulls = null;
+}
+
 const fixedTitles = {};
 
 data.titles.forEach(title=>{
@@ -611,6 +619,14 @@ const TITLE_SETS = {
 
 };
 
+function isAllComplete(){
+
+  return SONGS.every(
+    song => data.owned[song]
+  );
+
+}
+
 function checkTitles(){
 
   const unlocked = [];
@@ -691,6 +707,81 @@ div
 
 }
 
+let completeTapCount = 0;
+
+async function showCompletePopup(){
+
+  const popup =
+  document.getElementById(
+    "completePopup"
+  );
+
+  const info =
+  document.getElementById(
+    "completeInfo"
+  );
+
+  info.innerHTML = `
+
+    獲得種類数<br>
+    ${SONGS.length}/${SONGS.length}
+
+    <br><br>
+
+    全種類獲得日<br>
+    ${data.completeDate}
+
+    <br><br>
+
+    ガチャ回数<br>
+    ${data.completePulls}回
+
+  `;
+
+  popup.classList.remove(
+    "hidden"
+  );
+
+  completeTapCount = 0;
+
+}
+
+function renderCompleteRecord(){
+
+  const el =
+  document.getElementById(
+    "completeRecord"
+  );
+
+  if(!el) return;
+
+  if(data.completeDate){
+
+    el.innerHTML = `
+
+      👑 初代全曲コンプリート
+
+      <br><br>
+
+      日付：
+      ${data.completeDate}
+
+      <br><br>
+
+      ガチャ回数：
+      ${data.completePulls}回
+
+    `;
+
+  }else{
+
+    el.innerHTML =
+    "未達成";
+
+  }
+
+}
+
 function renderTitles(){
 
   const titleList =
@@ -747,6 +838,28 @@ saveData();
   });
 
 }
+
+document
+.getElementById("completePopup")
+.addEventListener(
+"click",
+()=>{
+
+  completeTapCount++;
+
+  if(completeTapCount >= 2){
+
+    document
+    .getElementById(
+      "completePopup"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+  }
+
+});
 
 function getAlbumCompleteDate(
   songs
@@ -1028,6 +1141,29 @@ for(const title of newTitles){
 
 }
 
+if(
+  isAllComplete()
+  &&
+  !data.completeDate
+){
+
+  data.completeDate =
+  todayString();
+
+  data.completePulls =
+  Object.values(data.owned)
+  .reduce(
+    (sum,song)=>
+    sum + song.count,
+    0
+  );
+
+  saveData();
+
+  await showCompletePopup();
+
+}
+
 saveData();
 
 for(const title of newTitles){
@@ -1237,3 +1373,5 @@ renderCollection();
 renderTopSongs();
 
 renderTitles();
+
+renderCompleteRecord();
