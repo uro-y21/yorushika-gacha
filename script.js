@@ -171,9 +171,6 @@ saveData();
 const gachaBtn =
 document.getElementById("gachaBtn");
 
-const gachaBtn =
-document.getElementById("gachaBtn");
-
 const animationArea =
 document.getElementById("animationArea");
 
