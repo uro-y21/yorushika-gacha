@@ -674,6 +674,21 @@ function renderTitles(){
   const titleList =
   document.getElementById("titleList");
 
+  data.titles = data.titles.map(title=>{
+
+  if(typeof title === "string"){
+
+    return {
+      name:title,
+      date:null
+    };
+
+  }
+
+  return title;
+
+});
+
   if(!titleList) return;
 
   titleList.innerHTML = "";
@@ -733,7 +748,21 @@ function showTitleDetail(title){
 
 }
 
-  function getAlbumCompleteDate(
+
+  detailBody.innerHTML = `
+    アルバム完成<br><br>
+
+    完成日時：
+    ${completeDate || "不明"}
+  `;
+
+  modal.classList.remove(
+    "hidden"
+  );
+
+}
+
+function getAlbumCompleteDate(
   songs
 ){
 
@@ -750,28 +779,13 @@ function showTitleDetail(title){
       !latest ||
       owned.firstDate > latest
     ){
-
       latest =
       owned.firstDate;
-
     }
 
   });
 
   return latest;
-
-}
-
-  detailBody.innerHTML = `
-    アルバム完成<br><br>
-
-    完成日時：
-    ${completeDate || "不明"}
-  `;
-
-  modal.classList.remove(
-    "hidden"
-  );
 
 }
 
