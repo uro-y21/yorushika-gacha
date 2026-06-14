@@ -875,27 +875,29 @@ saveData();
 
 }
 
-document
-.getElementById("completePopup")
-.addEventListener(
-"click",
-()=>{
+const completePopup =
+document.getElementById("completePopup");
 
-  completeTapCount++;
+if(completePopup){
 
-  if(completeTapCount >= 2){
+  completePopup.addEventListener(
+    "click",
+    ()=>{
 
-    document
-    .getElementById(
-      "completePopup"
-    )
-    .classList.add(
-      "hidden"
-    );
+      completeTapCount++;
 
-  }
+      if(completeTapCount >= 2){
 
-});
+        completePopup.classList.add(
+          "hidden"
+        );
+
+      }
+
+    }
+  );
+
+}
 
 function getAlbumCompleteDate(
   songs
