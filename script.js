@@ -1,3 +1,13 @@
+window.onerror = function(msg,url,line,col,error){
+
+  alert(
+    msg +
+    "\nline:" +
+    line
+  );
+
+};
+
 const SONGS = [
 
 "夏陰、ピアノを弾く",
