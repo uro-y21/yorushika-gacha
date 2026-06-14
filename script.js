@@ -1106,7 +1106,7 @@ async function runGacha(){
 
   const song = randomSong();
 
-  await showCompletePopup();
+await showSongAnimation(song);
 
 renderCompleteRecord();
   
