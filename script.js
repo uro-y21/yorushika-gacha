@@ -122,11 +122,30 @@ const STORAGE_KEY = "yorushika_gacha";
 const PLAYER_NAME_KEY =
 "yorushika_player_name";
 
-let data = JSON.parse(
-localStorage.getItem(STORAGE_KEY)
-||
-'{"owned":{},"titles":[],"lastDate":"","dailyCount":0}'
-);
+let data;
+
+try{
+
+  data = JSON.parse(
+    localStorage.getItem(STORAGE_KEY)
+  );
+
+}catch{
+
+  data = null;
+
+}
+
+if(!data){
+
+  data = {
+    owned:{},
+    titles:[],
+    lastDate:"",
+    dailyCount:0
+  };
+
+}
 
 if(typeof data.dailyCount === "undefined"){
 
@@ -152,11 +171,19 @@ const fixedTitles = {};
 
 data.titles.forEach(title=>{
 
+  if(!title){
+    return;
+  }
+
   if(typeof title === "string"){
     title = {
       name:title,
       date:null
     };
+  }
+
+  if(!title.name){
+    return;
   }
 
   title.name = title.name
@@ -468,13 +495,12 @@ return;
 }
 
 localStorage.setItem(
-PLAYER_NAME_KEY,
-name
+  PLAYER_NAME_KEY,
+  name
 );
 
-alert(
-"保存しました"
-);
+loadPlayerName();
+alert("保存しました");
 
 }
 
@@ -787,9 +813,9 @@ function renderTitles(){
   const titleList =
   document.getElementById("titleList");
 
-saveData();
+if(!titleList) return;
 
-  if(!titleList) return;
+saveData();
 
   titleList.innerHTML = "";
 
