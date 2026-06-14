@@ -370,14 +370,78 @@ h1{
   top: 10vh;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle at 30% 30%, #fff, #d9d9d9 40%, #888);
+
+  width: 140px;
+  height: 140px;
+
   border-radius: 50%;
-  box-shadow: 0 0 40px rgba(255,255,255,0.6);
+
+  background:
+    radial-gradient(
+      circle at 35% 35%,
+      #ffffff 0%,
+      #f8fbff 40%,
+      #eef6ff 75%,
+      #dfeeff 100%
+    );
+
+  box-shadow:
+    0 0 30px rgba(255,255,255,0.9),
+    0 0 80px rgba(220,235,255,0.7),
+    0 0 150px rgba(220,235,255,0.4);
+
   z-index: 9999;
   pointer-events: none;
+
   animation: moonFloat 2s ease-out;
+}
+
+.moon::before{
+  content: "";
+
+  position: absolute;
+
+  width: 18px;
+  height: 18px;
+
+  top: 30px;
+  left: 40px;
+
+  border-radius: 50%;
+
+  background: rgba(170,170,170,0.2);
+
+  box-shadow:
+    35px 20px 0 rgba(170,170,170,0.18),
+    15px 55px 0 rgba(170,170,170,0.15),
+    60px 45px 0 rgba(170,170,170,0.12);
+}
+
+.moon-mode{
+  filter:
+    brightness(0.55)
+    contrast(1.15)
+    saturate(0.75)
+    hue-rotate(10deg);
+
+  transition: 0.5s;
+}
+
+body.moon-mode::before{
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 15%,
+      rgba(180,220,255,0.15),
+      rgba(0,0,0,0.65)
+    );
+
+  pointer-events: none;
+  z-index: 9998;
 }
 
 @keyframes moonFloat{
