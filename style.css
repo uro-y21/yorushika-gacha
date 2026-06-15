@@ -285,19 +285,38 @@ h1{
    🎆 FIREWORK（花火）
 ========================= */
 .firework{
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  background: gold;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  animation: pop 0.8s ease-out forwards;
+  position:fixed;
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  z-index:99999;
+
+  animation:
+  fireworkBurst 1.5s ease-out forwards;
+
+  box-shadow:
+  0 0 10px currentColor,
+  0 0 20px currentColor;
 }
 
-@keyframes pop{
-  0%{transform: scale(1); opacity:1;}
-  100%{transform: scale(4); opacity:0;}
+@keyframes fireworkBurst{
+
+  0%{
+    transform:translate(0,0) scale(0.2);
+    opacity:1;
+  }
+
+  100%{
+    transform:
+    translate(var(--dx),var(--dy))
+    scale(1.8);
+
+    opacity:0;
+  }
+
 }
 
 
@@ -305,21 +324,60 @@ h1{
    🌸 SAKURA（桜）
 ========================= */
 .sakura{
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  background: pink;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  animation: fall linear forwards;
+
+  position:fixed;
+
+  width:14px;
+  height:14px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #ffd6ec,
+    #ff9ecf
+  );
+
+  border-radius:
+  70% 0 70% 0;
+
+  transform:
+  rotate(45deg);
+
+  pointer-events:none;
+
+  z-index:99999;
+
+  box-shadow:
+  0 0 8px rgba(255,180,220,.8);
+
+  animation:
+  sakuraFall linear forwards;
+
 }
 
-@keyframes fall{
-  0%{transform: translateY(-10vh) rotate(0deg);}
-  100%{transform: translateY(110vh) rotate(360deg);}
-}
+@keyframes sakuraFall{
 
+  0%{
+    transform:
+    translateY(-10vh)
+    rotate(0deg);
+  }
+
+  50%{
+    transform:
+    translateX(50px)
+    translateY(50vh)
+    rotate(180deg);
+  }
+
+  100%{
+    transform:
+    translateX(-80px)
+    translateY(110vh)
+    rotate(360deg);
+  }
+
+}
 
 /* =========================
    🌕 MOON MODE（暗転）
@@ -334,17 +392,52 @@ h1{
    ⚡ LASER（レーザー）
 ========================= */
 .laser{
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle, lime, transparent 60%);
-  pointer-events: none;
-  z-index: 9999;
-  animation: flash 0.6s ease-out;
+.laser-beam{
+
+  position:fixed;
+
+  top:50%;
+  left:50%;
+
+  height:3px;
+
+  background:
+  linear-gradient(
+    90deg,
+    #00ff66,
+    #66ffcc,
+    transparent
+  );
+
+  transform-origin:left center;
+
+  z-index:99999;
+
+  animation:
+  laserShoot 0.7s ease-out forwards;
+
+  box-shadow:
+  0 0 10px #00ff66,
+  0 0 20px #00ff66;
+
 }
 
-@keyframes flash{
-  0%{opacity:1;}
-  100%{opacity:0;}
+@keyframes laserShoot{
+
+  from{
+    opacity:1;
+    transform:
+    translate(-50%,-50%)
+    scaleX(0);
+  }
+
+  to{
+    opacity:0;
+    transform:
+    translate(-50%,-50%)
+    scaleX(1);
+  }
+
 }
 
 
