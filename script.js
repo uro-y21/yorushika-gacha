@@ -449,8 +449,10 @@ function laserEffect(){
     beam.className =
     "laser-beam";
 
-    beam.style.transform =
-    `rotate(${Math.random()*360}deg)`;
+    beam.style.setProperty(
+  "--rotate",
+  `${Math.random()*360}deg`
+);
 
     beam.style.width =
     (150+Math.random()*400)+"px";
