@@ -371,15 +371,45 @@ function playSongEffect(song){
 }
 
 function fireworkEffect(){
-  for(let i=0;i<20;i++){
-    const dot = document.createElement("div");
+
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+
+  for(let i=0;i<100;i++){
+
+    const dot =
+    document.createElement("div");
+
     dot.className = "firework";
-    dot.style.left = Math.random()*100 + "vw";
-    dot.style.top = Math.random()*100 + "vh";
+
+    dot.style.left = centerX + "px";
+    dot.style.top = centerY + "px";
+
+    const angle =
+    Math.random()*Math.PI*2;
+
+    const distance =
+    100 + Math.random()*250;
+
+    dot.style.setProperty(
+      "--dx",
+      Math.cos(angle)*distance+"px"
+    );
+
+    dot.style.setProperty(
+      "--dy",
+      Math.sin(angle)*distance+"px"
+    );
+
+    dot.style.background =
+    `hsl(${Math.random()*60+20},100%,70%)`;
+
     document.body.appendChild(dot);
 
-    setTimeout(()=>dot.remove(), 800);
+    setTimeout(()=>dot.remove(),1500);
+
   }
+
 }
 
 function sakuraEffect(){
@@ -410,11 +440,30 @@ function moonEffect(){
 }
 
 function laserEffect(){
-  const laser = document.createElement("div");
-  laser.className = "laser";
-  document.body.appendChild(laser);
 
-  setTimeout(()=>laser.remove(), 600);
+  for(let i=0;i<30;i++){
+
+    const beam =
+    document.createElement("div");
+
+    beam.className =
+    "laser-beam";
+
+    beam.style.transform =
+    `rotate(${Math.random()*360}deg)`;
+
+    beam.style.width =
+    (150+Math.random()*400)+"px";
+
+    document.body.appendChild(beam);
+
+    setTimeout(
+      ()=>beam.remove(),
+      700
+    );
+
+  }
+
 }
 
 function bombEffect(){
