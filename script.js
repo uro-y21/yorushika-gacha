@@ -402,8 +402,7 @@ function fireworkEffect(){
     );
 
     dot.style.background =
-    hsl(${Math.random()*360},100%,70%)
-
+`hsl(${Math.random()*360},100%,70%)`;
     document.body.appendChild(dot);
 
     setTimeout(()=>dot.remove(),1500);
@@ -413,15 +412,32 @@ function fireworkEffect(){
 }
 
 function sakuraEffect(){
-  for(let i=0;i<80;i++)
-    const petal = document.createElement("div");
-    petal.className = "sakura";
-    petal.style.left = Math.random()*100 + "vw";
-    petal.style.animationDuration = (2+Math.random()*3)+"s";
-    document.body.appendChild(petal);
 
-    setTimeout(()=>petal.remove(), 5000);
+  for(let i=0;i<80;i++){
+
+    const petal =
+    document.createElement("div");
+
+    petal.className =
+    "sakura";
+
+    petal.style.left =
+    Math.random()*100 + "vw";
+
+    petal.style.animationDuration =
+    (2+Math.random()*3)+"s";
+
+    document.body.appendChild(
+      petal
+    );
+
+    setTimeout(
+      ()=>petal.remove(),
+      5000
+    );
+
   }
+
 }
 
 function moonEffect(){
