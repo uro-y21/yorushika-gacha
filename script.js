@@ -402,7 +402,7 @@ function fireworkEffect(){
     );
 
     dot.style.background =
-    `hsl(${Math.random()*60+20},100%,70%)`;
+    hsl(${Math.random()*360},100%,70%)
 
     document.body.appendChild(dot);
 
@@ -413,7 +413,7 @@ function fireworkEffect(){
 }
 
 function sakuraEffect(){
-  for(let i=0;i<30;i++){
+  for(let i=0;i<80;i++)
     const petal = document.createElement("div");
     petal.className = "sakura";
     petal.style.left = Math.random()*100 + "vw";
