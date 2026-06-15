@@ -451,7 +451,7 @@ function laserEffect(){
 
     beam.style.setProperty(
   "--rotate",
-  `${Math.random()*360}deg`
+  `${i*12}deg`
 );
 
     beam.style.width =
