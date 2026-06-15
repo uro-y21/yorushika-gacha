@@ -510,18 +510,20 @@ body.moon-mode::before{
 @keyframes laserShoot{
 
   from{
-    opacity:1;
-    transform:
-    translate(-50%,-50%)
-    scaleX(0);
-  }
+  opacity:1;
+  transform:
+  translate(-50%,-50%)
+  rotate(var(--rotate))
+  scaleX(0);
+}
 
-  to{
-    opacity:0;
-    transform:
-    translate(-50%,-50%)
-    scaleX(1);
-  }
+to{
+  opacity:0;
+  transform:
+  translate(-50%,-50%)
+  rotate(var(--rotate))
+  scaleX(1);
+}
 
 }
 
