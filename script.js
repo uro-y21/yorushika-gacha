@@ -454,9 +454,6 @@ function laserEffect(){
   `${i*12}deg`
 );
 
-    beam.style.width =
-    (150+Math.random()*400)+"px";
-
     document.body.appendChild(beam);
 
     setTimeout(
