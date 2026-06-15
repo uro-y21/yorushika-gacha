@@ -384,81 +384,6 @@ h1{
 /* =========================
    🌕 MOON MODE（暗転）
 ========================= */
-.moon-mode{
-  filter: brightness(0.25) contrast(1.3) saturate(0.8);
-  transition: 0.3s;
-}
-
-
-/* =========================
-   ⚡ LASER（レーザー）
-========================= */
-.laser-beam{
-
-  position:fixed;
-
-  top:50%;
-  left:50%;
-
-  height:3px;
-
-  background:
-  linear-gradient(
-    90deg,
-    #00ff66,
-    #66ffcc,
-    transparent
-  );
-
-  transform-origin:left center;
-
-  z-index:99999;
-
-  animation:
-  laserShoot 0.7s ease-out forwards;
-
-  box-shadow:
-  0 0 10px #00ff66,
-  0 0 20px #00ff66;
-
-}
-
-@keyframes laserShoot{
-
-  from{
-    opacity:1;
-    transform:
-    translate(-50%,-50%)
-    scaleX(0);
-  }
-
-  to{
-    opacity:0;
-    transform:
-    translate(-50%,-50%)
-    scaleX(1);
-  }
-
-}
-
-
-/* =========================
-   💣 BOMB（爆発）
-========================= */
-.bomb{
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle, red, black 70%);
-  pointer-events: none;
-  z-index: 9999;
-  animation: boom 0.7s ease-out;
-}
-
-@keyframes boom{
-  0%{transform: scale(0.3); opacity:1;}
-  100%{transform: scale(2); opacity:0;}
-}
-
 .moon{
   position: fixed;
   top: 10vh;
@@ -549,6 +474,74 @@ body.moon-mode::before{
   }
 }
 
+/* =========================
+   ⚡ LASER（レーザー）
+========================= */
+.laser-beam{
+
+  position:fixed;
+
+  top:50%;
+  left:50%;
+
+  height:3px;
+
+  background:
+  linear-gradient(
+    90deg,
+    #00ff66,
+    #66ffcc,
+    transparent
+  );
+
+  transform-origin:left center;
+
+  z-index:99999;
+
+  animation:
+  laserShoot 0.7s ease-out forwards;
+
+  box-shadow:
+  0 0 10px #00ff66,
+  0 0 20px #00ff66;
+
+}
+
+@keyframes laserShoot{
+
+  from{
+    opacity:1;
+    transform:
+    translate(-50%,-50%)
+    scaleX(0);
+  }
+
+  to{
+    opacity:0;
+    transform:
+    translate(-50%,-50%)
+    scaleX(1);
+  }
+
+}
+
+
+/* =========================
+   💣 BOMB（爆発）
+========================= */
+.bomb{
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, red, black 70%);
+  pointer-events: none;
+  z-index: 9999;
+  animation: boom 0.7s ease-out;
+}
+
+@keyframes boom{
+  0%{transform: scale(0.3); opacity:1;}
+  100%{transform: scale(2); opacity:0;}
+}
 
 /* 💣 爆弾本体 */
 .bomb-core{
